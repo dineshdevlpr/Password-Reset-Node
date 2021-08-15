@@ -7,6 +7,7 @@ var randomstring = require("randomstring");
 require("dotenv").config();
 
 const dbUrl = process.env.DB_URL;
+const feUrl = process.env.RESET_URL;
 const randomStr = randomstring.generate();
 
 router.post("/register", async (req, res) => {
@@ -97,13 +98,13 @@ router.post("/register", async (req, res) => {
           to: req.body.email,
           subject: "Password Reset",
           html: `<div>
-                    <h1>If You have requested for Password Reset, Click the following link to reset your password.If not requested, then just ignore this mail</h1>
-                    <a href="${process.env.RESET_URL}${randomStr}">RESET PASSWORD</a>
+                    <h3>If You have requested for Password Reset, Click the following link to reset your password.If not requested, then just ignore this mail</h3>
+                    <a href="${feUrl}${randomStr}">RESET PASSWORD</a>
                   </div>`,
         })   
         res.status(200).json({
           message:
-            "Password Reset Link has been sent to your registered mail",
+            "Password Reset Link has been sent to your mail",
         });
       } else {
         res.status(404).json({
@@ -147,7 +148,7 @@ router.post("/register", async (req, res) => {
         }
       } else {
         res.status(404).json({
-          message: "Password can't be updated",
+          message: "Error Password can't be updated",
         });
       }
     } catch (error) {
