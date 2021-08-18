@@ -80,21 +80,21 @@ router.post("/register", async (req, res) => {
         
   
         let mailTransporter = nodeMailer.createTransport({
-          service: "gmail",
+          host: "smtp-mail.outlook.com",
           port: 587,
           secure: false,
           tls: {
             rejectUnauthorized: false,
           },
           auth: {
-            user: "atq.dinesh@gmail.com",
-            pass: process.env.GMAIL_PASS
+            user: "dineshdevlpr@outlook.com",
+            pass: process.env.PASS
           }
         });
   
      
          let mailDetails = await mailTransporter.sendMail({
-          from: '"DINESH"<atq.dinesh@gmail.com>',
+          from: '"DINESH"<dineshdevlpr@outlook.com>',
           to: req.body.email,
           subject: "Password Reset",
           html: `<div>
