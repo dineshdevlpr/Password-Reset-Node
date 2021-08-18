@@ -35,7 +35,7 @@ router.post("/register", async (req, res) => {
   });
 
   
-    router.get("/login", async (req, res) => { 
+    router.post("/login", async (req, res) => { 
     try {
       let client = await MongoClient.connect(dbUrl);
       let db = client.db("Password-Reset");
@@ -62,7 +62,7 @@ router.post("/register", async (req, res) => {
     }
   });
 
-  router.get("/forgot", async (req, res) => {
+  router.post("/forgot", async (req, res) => {
     try {
       let client = await MongoClient.connect(dbUrl);
       let db = client.db("Password-Reset");
