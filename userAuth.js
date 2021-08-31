@@ -117,28 +117,28 @@ router.post("/register", async (req, res) => {
     }
   });
   
-  router.post("/reset/:randomStr", async (req, res) => {
+  router.post("/reset/:randomString", async (req, res) => {
     try {
       const client = await MongoClient.connect(dbUrl, {
         useUnifiedTopology: true,
       });
       const db = client.db("Password-Reset");
       const userData = await db.collection("users").findOne({
-        randomString: req.params.randomStr
+        randomString: req.params.randomString
       });
       if (userData) {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const updated = await db
           .collection("users")
           .updateOne(
-            { randomString: req.params.randomStr },
+            { randomString: req.params.randomString },
             { $set: { password: hashedPassword } }
           );
         if (updated) {
           await db
             .collection("users")
             .updateOne(
-              { randomString: req.params.randomStr },
+              { randomString: req.params.randomString },
               { $unset: { randomString : 1} }
             );
   
